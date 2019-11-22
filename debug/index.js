@@ -1,5 +1,7 @@
 import { observable, observe, unobserve } from '@nx-js/observer-util'
 
+console.time('[trace]')
+
 const data = observable({ array: [1, 2, 3, 4], num: 12 })
 let reactions = []
 
@@ -10,6 +12,8 @@ const interval = setInterval(() => {
 function observeMany () {
   for (let i = 0; i < 10000; i++) {
     const reaction = observe(() => {
+      console.log('[reaction]')
+
       return data.num + data.array.reduce((sum, num) => sum + num, 0)
     })
     reactions.push(reaction)
@@ -17,7 +21,7 @@ function observeMany () {
 }
 
 function unobserveMany () {
-  for (let reaction of reactions) {
+  for (const reaction of reactions) {
     unobserve(reaction)
   }
   reactions = []
@@ -27,3 +31,11 @@ function unobserveMany () {
 
 window.observeMany = observeMany
 window.unobserveMany = unobserveMany
+
+window.observeMany()
+
+setTimeout(() => {
+  window.unobserveMany()
+
+  console.timeEnd('[trace]')
+}, 3 * 1000)

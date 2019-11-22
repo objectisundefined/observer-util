@@ -28,7 +28,7 @@ describe('Set', () => {
     const set = observable(new Set())
     observe(() => {
       dummy = 0
-      for (let num of set) {
+      for (const num of set) {
         dummy += num
       }
     })
@@ -66,7 +66,7 @@ describe('Set', () => {
     const set = observable(new Set())
     observe(() => {
       dummy = 0
-      for (let num of set.values()) {
+      for (const num of set.values()) {
         dummy += num
       }
     })
@@ -86,7 +86,7 @@ describe('Set', () => {
     const set = observable(new Set())
     observe(() => {
       dummy = 0
-      for (let num of set.keys()) {
+      for (const num of set.keys()) {
         dummy += num
       }
     })
@@ -107,7 +107,7 @@ describe('Set', () => {
     observe(() => {
       dummy = 0
       // eslint-disable-next-line no-unused-vars
-      for (let [key, num] of set.entries()) {
+      for (const [key, num] of set.entries()) {
         dummy += num
       }
     })
@@ -199,19 +199,19 @@ describe('Set', () => {
     const set = observable(new Set())
     observe(() => {
       dummy = 0
-      for (let [num] of raw(set).entries()) {
+      for (const [num] of raw(set).entries()) {
         dummy += num
       }
-      for (let num of raw(set).keys()) {
+      for (const num of raw(set).keys()) {
         dummy += num
       }
-      for (let num of raw(set).values()) {
+      for (const num of raw(set).values()) {
         dummy += num
       }
       raw(set).forEach(num => {
         dummy += num
       })
-      for (let num of raw(set)) {
+      for (const num of raw(set)) {
         dummy += num
       }
     })
@@ -283,37 +283,37 @@ describe('Set', () => {
     set.add({})
 
     set.forEach(value => expect(isObservable(value)).to.be.false)
-    for (let value of set) {
+    for (const value of set) {
       expect(isObservable(value)).to.be.false
     }
-    for (let [_, value] of set.entries()) {
+    for (const [_, value] of set.entries()) {
       expect(isObservable(value)).to.be.false
     }
-    for (let value of set.values()) {
+    for (const value of set.values()) {
       expect(isObservable(value)).to.be.false
     }
 
     observe(() => {
       set.forEach(value => expect(isObservable(value)).to.be.true)
-      for (let value of set) {
+      for (const value of set) {
         expect(isObservable(value)).to.be.true
       }
-      for (let [_, value] of set.entries()) {
+      for (const [_, value] of set.entries()) {
         expect(isObservable(value)).to.be.true
       }
-      for (let value of set.values()) {
+      for (const value of set.values()) {
         expect(isObservable(value)).to.be.true
       }
     })
 
     set.forEach(value => expect(isObservable(value)).to.be.true)
-    for (let value of set) {
+    for (const value of set) {
       expect(isObservable(value)).to.be.true
     }
-    for (let [_, value] of set.entries()) {
+    for (const [_, value] of set.entries()) {
       expect(isObservable(value)).to.be.true
     }
-    for (let value of set.values()) {
+    for (const value of set.values()) {
       expect(isObservable(value)).to.be.true
     }
   })

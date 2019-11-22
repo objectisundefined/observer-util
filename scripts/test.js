@@ -3,7 +3,7 @@ const resolve = require('rollup-plugin-node-resolve')
 const commonjs = require('rollup-plugin-commonjs')
 const babel = require('rollup-plugin-babel')
 const coverage = require('rollup-plugin-coverage')
-const alias = require('rollup-plugin-alias')
+const alias = require('@rollup/plugin-alias')
 const TestServer = require('karma').Server
 
 const bundleName = process.env.BUNDLE
@@ -18,8 +18,15 @@ const config = {
   },
   rollupPreprocessor: {
     plugins: [
+      // see https://github.com/rollup/plugins/tree/master/packages/alias
       alias({
-        '@nx-js/observer-util': path.resolve(bundlePath)
+        // '@nx-js/observer-util': path.resolve(bundlePath)
+        entries: [
+          {
+            find: '@nx-js/observer-util',
+            replacement: path.resolve(bundlePath)
+          }
+        ]
       }),
       babel({
         exclude: 'node_modules/**'
